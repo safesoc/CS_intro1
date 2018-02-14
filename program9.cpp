@@ -105,11 +105,11 @@ int main()
         ss << c;
     }
 
-    /*if(!inFile)
+    if(inFile)
     {
         cout << "Error: File did NOT open." << endl;
         exit(1);
-    }*/
+    }
 
 
       ////////////
