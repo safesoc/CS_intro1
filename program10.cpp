@@ -4,8 +4,8 @@
     Assignment Title:       Program 10
     Assignment Description: Min Max Sum Count Average
                             This program reads an unknown number of integers
-							from data and reports the min, max, sum, count and
-							average of the data.
+			    from data and reports the min, max, sum, count and
+			    average of the data.
     Due Date:               02/15/18
     Date Created:           02/14/18
     Date Last Modified:     02/14/18
