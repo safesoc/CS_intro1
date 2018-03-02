@@ -53,8 +53,10 @@ int main()
     ifstream namesFile, studentFile;
     string fileName, sFileName, fName, lName;
     char mInitial;
-    int sGrade, sTotal = 0,maxGrade = 0, minGrade = 100, sCount, cCount =0;
+    int sGrade, sTotal = 0,maxGrade = 0, minGrade = 100, sCount = 0, cCount =0;
     double sAvg = 0, cAvg = 0, cTotal = 0;
+    bool hasData = true;
+    bool hasGrades = false;
 
     // Input
     cout << "Enter Name of Data File: ";
@@ -70,21 +72,22 @@ int main()
     }
 
     // Process & Output
-    cout << setw(30) << left << "Student" << "Average" << endl;
+    cout << setprecision(2) << fixed;
+    cout << setw(20) << left << "Student" << "Average" << endl;
 
-    while (!namesFile.eof())
+    while(namesFile >> lName >> fName >> mInitial)
     {
-        for(int i = 0; i < 3; i++)
+        studentFile.clear();
+        studentFile.open((fName + lName +".dat").c_str());
+        sTotal = sCount = 0;
+        if(!studentFile)
         {
-            namesFile >> lName >> fName >> mInitial;
+            hasData = false;
         }
 
-        studentFile.open((fName + lName +".dat").c_str());
-
-        sTotal = sCount = 0;
-        while (!studentFile.eof())
+        while (studentFile >> sGrade)
         {
-            studentFile >> sGrade;
+            hasGrades = true;
 
             if (sGrade > maxGrade){
                 maxGrade = sGrade;
@@ -94,25 +97,34 @@ int main()
             }
 
             sTotal += sGrade;
-            sAvg = sTotal / sCount;
+
             sCount++;
+
         }
+
         studentFile.close();
 
-        cTotal += sTotal/sCount;
-        cAvg = cTotal/cCount;
+        cTotal += sTotal / sCount;
+
         cCount++;
 
-        cout << setw(30) << left << fName + mInitial + lName;
-        cout << setprecision(2) << fixed << sAvg << endl;
+        sAvg = static_cast<double>(sTotal) / sCount;
+
+        cout << setw(20) << left << fName + " " + mInitial + " " + lName;
+        if(!hasData)
+            cout << setw(20) << left << "No Data File" << endl;
+        else if(!hasGrades)
+            cout << setw(20) << left << "No Grades" << endl;
+        else
+            cout << setw(20) << left << sAvg << endl;
     }
 
-    cout << setw(30) << left << "\n\nClass Average: ";
-    cout << cAvg << endl;
-    cout << "Max Score: " << maxGrade << endl;
-    cout << "Min Score: " << minGrade << endl;
+    cAvg = cTotal/cCount;
+
+    cout << setw(20) << left << "\n\nClass Average: " << cAvg << endl;
+    cout << setw(20) << left <<  "Max Score: " << maxGrade << endl;
+    cout << setw(20) << left <<  "Min Score: " << minGrade << endl;
 
     namesFile.close();
     return 0;
 }
-
