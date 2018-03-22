@@ -1,0 +1,70 @@
+/*
+*******************************************************************************
+    Author:                 Jacob Wunder
+    Assignment Title:       Program 18
+    Assignment Description: Awesome Square
+                            This program ultimately checks the sum of the rows
+                            of a square to ensure the sum is equal for all rows
+    Due Date:               03/22/18
+    Date Created:           03/22/18
+    Date Last Modified:     03/22/18
+*******************************************************************************
+    Data Abstraction:
+        * ints declared for test case count, square size, value, row and total
+        sums
+    Input:
+        * Ask user for test case count, ask square size, then ask value until
+          square size is reached, then ask square size again until test case
+          count is achieved.
+    Process:
+        * Ask square size until test case count is reached
+        * Ask value, add to row sum, add row sum to total sum
+        * If total sum divided by square size is equal to the row sum, print
+          "Awesome" else print "Not Awesome"
+    Output:
+        *  Print "Awesome" if the sum of all rows are equal,  "Not Awesome" if
+           they are not all equal.
+    Assumptions:
+        * It is assumed that, having been prompted to do so, the user will
+          correctly input data
+*******************************************************************************
+*/
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    // Data Abstraction
+    int c, n;
+    int num = 0, rowSum = 0, totalSum = 0;
+
+    // Input
+    cin >> c;
+
+    // Process & Output
+    for (int i = 0; i < c; i++)
+    {
+        cin >> n;
+
+        for (int j = 0; j < n; j++)
+        {
+            rowSum = 0;
+
+            for(int k =0; k < n; k++)
+            {
+                cin >> num;
+                rowSum += num;
+            }
+
+            totalSum += rowSum;
+        }
+        if (totalSum / n == rowSum)
+            cout << "Awesome" << endl;
+        else
+            cout << "Not Awesome" << endl;
+
+        totalSum = 0;
+    }
+    return 0;
+}
